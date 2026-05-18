@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+
+  postgres:
+    image: postgres:16
+    container_name: student-postgres
+    environment:
+      POSTGRES_DB: studentreg
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Tamanna@2006
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./studentportal
+    container_name: student-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+  frontend:
+    build: ./student-frontend
+    container_name: student-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
